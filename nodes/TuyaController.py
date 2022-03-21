@@ -27,6 +27,7 @@ class TuyaController(udi_interface.Node):
     def parameter_handler(self, params):
         self.Notices.clear()
         self.Parameters.load(params)
+        self.check_params()
 
     # def parameter_typed_handler(self, params):
     #     self.Notices.clear()
@@ -51,16 +52,16 @@ class TuyaController(udi_interface.Node):
 
     def discover(self, *args, **kwargs):
         LOGGER.info("Starting Tuya Device Discovery")
+
+        LOGGER.info(self.Parameters['devices'])
         scan_results = tinytuya.deviceScan()
 
         for value in scan_results.values():
             ip = value['ip']
             device_id = value['gwId']
             version = value['version']
-            node_name = value['name']
+            LOGGER.info("Device Scan Device IP: {}".format(ip))
 
-        self.setDriver('GV1', node_name)
-        self.setDriver('GV2', ip)
 
         LOGGER.info('Finished Tuya Device Discovery')
 
