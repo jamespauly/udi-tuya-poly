@@ -13,15 +13,13 @@ class TuyaController(udi_interface.Node):
         self.name = name
         self.primary = primary
         self.address = address
-        self.broadcastIpList = []
-        self.broadcastIpsDefined = False
 
         self.Notices = Custom(polyglot, 'notices')
         self.Parameters = Custom(polyglot, 'customparams')
 
         self.poly.subscribe(self.poly.START, self.start, address)
         self.poly.subscribe(self.poly.CUSTOMPARAMS, self.parameter_handler)
-        self.poly.subscribe(self.poly.CUSTOMTYPEDPARAMS, self.parameter_typed_handler)
+        # self.poly.subscribe(self.poly.CUSTOMTYPEDPARAMS, self.parameter_typed_handler)
 
         self.poly.ready()
         self.poly.addNode(self)
@@ -30,16 +28,16 @@ class TuyaController(udi_interface.Node):
         self.Notices.clear()
         self.Parameters.load(params)
 
-    def parameter_typed_handler(self, params):
-        self.Notices.clear()
-        self.Parameters.load(params)
-        typedParams = [
-            {'name': 'host', 'title': 'Host', 'isRequired': False},
-            {'name': 'port', 'title': 'Port', 'isRequired': False, 'type': 'NUMBER'},
-            {'name': 'user', 'title': 'User', 'isRequired': False},
-            {'name': 'password', 'title': 'Password', 'isRequired': False}]
-
-        self.poly.saveTypedParams(typedParams)
+    # def parameter_typed_handler(self, params):
+    #     self.Notices.clear()
+    #     self.Parameters.load(params)
+    #     typedParams = [
+    #         {'name': 'host', 'title': 'Host', 'isRequired': False},
+    #         {'name': 'port', 'title': 'Port', 'isRequired': False, 'type': 'NUMBER'},
+    #         {'name': 'user', 'title': 'User', 'isRequired': False},
+    #         {'name': 'password', 'title': 'Password', 'isRequired': False}]
+    #
+    #     self.poly.saveTypedParams(typedParams)
 
     def start(self):
         LOGGER.info('Staring Tuya NodeServer')
@@ -60,7 +58,9 @@ class TuyaController(udi_interface.Node):
             device_id = value['gwId']
             version = value['version']
             node_name = value['name']
-            print(value['ip'])
+
+        self.setDriver('GV1', node_name)
+        self.setDriver('GV2', ip)
 
         LOGGER.info('Finished Tuya Device Discovery')
 

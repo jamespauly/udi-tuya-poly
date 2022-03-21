@@ -16,7 +16,7 @@ import logging
 
 if __name__ == "__main__":
     try:
-        LOGGER.debug("Staring Daikin Interface")
+        LOGGER.debug("Staring Tuya Interface")
         polyglot = udi_interface.Interface([TuyaController, TuyaNode])
         polyglot.start()
         control = TuyaController(polyglot, 'controller', 'controller', 'Tuya Controller')
