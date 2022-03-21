@@ -1,0 +1,23 @@
+{
+    "timestamp": 1647643014.601438,
+    "devices": [
+        {
+            "name": "Backyard Flood Light",
+            "ip": "192.168.86.6",
+            "ver": "3.3",
+            "id": "ebd85577fae5b9605cpvpi",
+            "key": "fef7d468e4d01d28",
+            "dps": {
+                "dps": {
+                    "101": "AUTO",
+                    "104": "MEDIUM",
+                    "105": "5MIN",
+                    "106": false,
+                    "107": 1000,
+                    "110": true,
+                    "111": true
+                }
+            }
+        }
+    ]
+}

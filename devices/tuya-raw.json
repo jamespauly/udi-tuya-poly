@@ -1,0 +1,40 @@
+{
+    "result": [
+        {
+            "active_time": 1647636287,
+            "biz_type": 0,
+            "category": "dj",
+            "create_time": 1643490644,
+            "icon": "smart/icon/ay1557495166981BnHtc/52e7f455da7cb9f30cec7af145b9feec.png",
+            "id": "ebd85577fae5b9605cpvpi",
+            "ip": "76.236.222.131",
+            "lat": "33.7579",
+            "local_key": "fef7d468e4d01d28",
+            "lon": "-84.3043",
+            "model": "\u70ed\u70b9\u540d\u79f0\u524d\u7f00\u201cSL-HZ\u201d",
+            "name": "Backyard Flood Light",
+            "online": true,
+            "owner_id": "66612135",
+            "product_id": "nihsu4dbnob5ltwp",
+            "product_name": "Wi-Fi Security Light",
+            "status": [
+                {
+                    "code": "switch_led",
+                    "value": "false"
+                },
+                {
+                    "code": "bright_value_v2",
+                    "value": 1000
+                }
+            ],
+            "sub": false,
+            "time_zone": "-04:00",
+            "uid": "az16476349622503MbZr",
+            "update_time": 1647642530,
+            "uuid": "14ab4cdf1abef3fc"
+        }
+    ],
+    "success": true,
+    "t": 1647642961073,
+    "tid": "c98ddee6a70b11ec97532e609e0e211c"
+}
