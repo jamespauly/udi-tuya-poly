@@ -1,0 +1,22 @@
+<nodeDefs>
+    <!-- NODE DEF from 5.0 document http://wiki.universal-devices.com/index.php?title=V50_MAIN -->
+    <!-- controller, this must mach the id in your Controller class-->
+    <nodeDef id="daikin" nls="tuyanls">
+        <editors/>
+        <sts>
+            <st id="ST" editor="bool"/>
+            <st id="GV1" editor="I_GENERIC"/>
+            <st id="GV2" editor="I_GENERIC"/>
+        </sts>
+        <cmds>
+            <accepts/>
+        </cmds>
+    </nodeDef>
+    <nodeDef id="tuyanode" nls="tuyanodenls">
+        <editors/>
+        <sts/>
+        <cmds>
+            <accepts/>
+        </cmds>
+    </nodeDef>
+</nodeDefs>

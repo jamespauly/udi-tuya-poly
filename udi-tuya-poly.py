@@ -9,17 +9,17 @@ import sys
 LOGGER = udi_interface.LOGGER
 LOG_HANDLER = udi_interface.LOG_HANDLER;
 
-from nodes import DaikinController
-from nodes import DaikinNode
+from nodes import TuyaController
+from nodes import TuyaNode
 
 import logging
 
 if __name__ == "__main__":
     try:
         LOGGER.debug("Staring Daikin Interface")
-        polyglot = udi_interface.Interface([DaikinController, DaikinNode])
+        polyglot = udi_interface.Interface([TuyaController, TuyaNode])
         polyglot.start()
-        control = DaikinController(polyglot, 'controller', 'controller', 'Daikin Controller')
+        control = TuyaController(polyglot, 'controller', 'controller', 'Tuya Controller')
         polyglot.runForever()
     except (KeyboardInterrupt, SystemExit):
         polyglot.stop()
