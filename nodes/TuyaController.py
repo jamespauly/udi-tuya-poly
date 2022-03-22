@@ -1,5 +1,8 @@
 import udi_interface
 import tinytuya
+import json
+
+from nodes import TuyaNode
 
 # IF you want a different log format than the current default
 LOGGER = udi_interface.LOGGER
@@ -27,7 +30,7 @@ class TuyaController(udi_interface.Node):
     def parameter_handler(self, params):
         self.Notices.clear()
         self.Parameters.load(params)
-        self.check_params()
+        # self.check_params()
 
     # def parameter_typed_handler(self, params):
     #     self.Notices.clear()
@@ -53,7 +56,9 @@ class TuyaController(udi_interface.Node):
     def discover(self, *args, **kwargs):
         LOGGER.info("Starting Tuya Device Discovery")
 
-        LOGGER.info(self.Parameters['devices'])
+        devices_list = json.loads(self.Parameters['devices'])
+
+        LOGGER.info(json.dumps(devices_list))
         scan_results = tinytuya.deviceScan()
 
         for value in scan_results.values():
@@ -61,7 +66,10 @@ class TuyaController(udi_interface.Node):
             device_id = value['gwId']
             version = value['version']
             LOGGER.info("Device Scan Device IP: {}".format(ip))
-
+            for dict_found in [x for x in devices_list if x["id"] == value['gwId']]:
+                value['name'] = dict_found['name']
+                value['key'] = dict_found['key']
+                self.poly.addNode(TuyaNode(self.poly, self.address, device_id, dict_found['name'], value))
 
         LOGGER.info('Finished Tuya Device Discovery')
 
