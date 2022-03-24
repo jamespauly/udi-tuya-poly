@@ -8,5 +8,6 @@ ST-tuyanls-ST-NAME = Tuya NodeServer Running
 # daikinnodetype
 ND-tuyanode-NAME = Tuya Device Name
 ND-tuyanode-ICON = Electricity
-ST-tuyanodenls-GV1-NAME = Device Name
-ST-tuyanodenls-GV2-NAME = Device IP Address
+CMD-tuyanodenls-QUERY-NAME = Query
+ST-tuyanodenls-GV1-NAME = Brightness
+ST-tuyanodenls-GV2-NAME = On Time

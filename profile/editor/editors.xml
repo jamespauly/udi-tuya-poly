@@ -3,7 +3,10 @@
     <editor id="bool">
         <range uom="2" subset="0,1"/>
     </editor>
-    <editor id="I_GENERIC">
-        <range uom="0"/>
+    <editor id="I_DURATION">
+        <range uom="45" min="0" max="20"/>
+    </editor>
+    <editor id="I_PERCENT">
+        <range uom="51" min="1" max="100" prec="0" step="1" />
     </editor>
 </editors>

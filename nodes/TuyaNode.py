@@ -1,3 +1,5 @@
+import json
+
 import udi_interface
 import tinytuya
 
@@ -24,9 +26,17 @@ class TuyaNode(udi_interface.Node):
     def query(self):
         LOGGER.info("Query sensor {}".format(self.address))
         d = tinytuya.BulbDevice(self.device['gwId'], self.device['ip'], self.device['key'])
-        self.setDriver('GV1', self.name)
-        self.setDriver('GV2', self.device['ip'])
-        self.reportDrivers()
+        d.set_version(3.3)
+        LOGGER.info("Node Name {}".format(self.name))
+        node_status = d.status()
+        LOGGER.info("Node Status {}".format(str(node_status)))
+        node_brightness = node_status['dps']['107']/10
+        LOGGER.info("Node Brightness {}".format(node_brightness))
+        node_duration = node_status['dps']['105'].replace('MIN', '')
+        LOGGER.info("Node On Time {}".format(node_duration))
+
+        self.setDriver('GV1', int(node_brightness), True)
+        self.setDriver('GV2', int(node_duration), True)
 
     def start(self):
         self.query()
@@ -38,6 +48,6 @@ class TuyaNode(udi_interface.Node):
     }
 
     drivers = [
-        {'driver': 'GV1', 'value': 'TBD', 'uom': 0},
-        {'driver': 'GV2', 'value': 'TBD', 'uom': 0}
+        {'driver': 'GV1', 'value': 0, 'uom': 51},
+        {'driver': 'GV2', 'value': 0, 'uom': 45}
     ]
