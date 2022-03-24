@@ -34,11 +34,8 @@ class TuyaNode(udi_interface.Node):
         LOGGER.info("Node Brightness {}".format(node_brightness))
         node_duration = node_status['dps']['105'].replace('MIN', '')
         LOGGER.info("Node On Time {}".format(node_duration))
-
-        self.setDriver('GV1', 40, True)
-        self.setDriver('GV2', 5, True)
-        # self.setDriver('GV1', int(node_brightness), True)
-        # self.setDriver('GV2', int(node_duration), True)
+        self.setDriver('GV1', int(node_brightness), True)
+        self.setDriver('GV2', int(node_duration), True)
 
     def start(self):
         self.query()
@@ -50,6 +47,6 @@ class TuyaNode(udi_interface.Node):
     }
 
     drivers = [
-        {'driver': 'GV1', 'value': 0, 'uom': 51},
-        {'driver': 'GV2', 'value': 0, 'uom': 45}
+        {'driver': 'GV1', 'value': 0, 'uom': '51'},
+        {'driver': 'GV2', 'value': 0, 'uom': '45''}
     ]
