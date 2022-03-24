@@ -31,17 +31,6 @@ class TuyaController(udi_interface.Node):
         self.Parameters.load(params)
         # self.check_params()
 
-    # def parameter_typed_handler(self, params):
-    #     self.Notices.clear()
-    #     self.Parameters.load(params)
-    #     typedParams = [
-    #         {'name': 'host', 'title': 'Host', 'isRequired': False},
-    #         {'name': 'port', 'title': 'Port', 'isRequired': False, 'type': 'NUMBER'},
-    #         {'name': 'user', 'title': 'User', 'isRequired': False},
-    #         {'name': 'password', 'title': 'Password', 'isRequired': False}]
-    #
-    #     self.poly.saveTypedParams(typedParams)
-
     def start(self):
         LOGGER.info('Staring Tuya NodeServer')
         self.poly.updateProfile()

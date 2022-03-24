@@ -3,7 +3,6 @@ import tinytuya
 
 LOGGER = udi_interface.LOGGER
 
-
 class TuyaNode(udi_interface.Node):
     def __init__(self, polyglot, primary, address, name, device):
         super(TuyaNode, self).__init__(polyglot, primary, address, name)
@@ -35,6 +34,7 @@ class TuyaNode(udi_interface.Node):
     id = 'tuyanode'
 
     commands = {
+        'QUERY': query
     }
 
     drivers = [
