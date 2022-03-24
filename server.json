@@ -12,7 +12,7 @@
   "devMode": true,
   "profile_version": "3.0.0",
   "customParams": {
-    "broadcast_ips": ""
+    "devices": "[{\"name\": \"Backyard Flood Light\", \"id\": \"ebd85577fae5b9605cpvpi\", \"key\": \"fef7d468e4d01d28\"}]"
   },
   "credits": [
     {
