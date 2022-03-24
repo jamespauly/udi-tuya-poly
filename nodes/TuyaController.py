@@ -22,7 +22,6 @@ class TuyaController(udi_interface.Node):
 
         self.poly.subscribe(self.poly.START, self.start, address)
         self.poly.subscribe(self.poly.CUSTOMPARAMS, self.parameter_handler)
-        # self.poly.subscribe(self.poly.CUSTOMTYPEDPARAMS, self.parameter_typed_handler)
 
         self.poly.ready()
         self.poly.addNode(self)
@@ -69,6 +68,7 @@ class TuyaController(udi_interface.Node):
             for dict_found in [x for x in devices_list if x["id"] == value['gwId']]:
                 value['name'] = dict_found['name']
                 value['key'] = dict_found['key']
+                LOGGER.info("Adding Node: {}".format(dict_found['name']))
                 self.poly.addNode(TuyaNode(self.poly, self.address, device_id, dict_found['name'], value))
 
         LOGGER.info('Finished Tuya Device Discovery')
@@ -86,7 +86,5 @@ class TuyaController(udi_interface.Node):
     }
 
     drivers = [
-        {'driver': 'ST', 'value': 1, 'uom': 2},
-        {'driver': 'GV1', 'value': 'TBD', 'uom': 0},
-        {'driver': 'GV2', 'value': 'TBD', 'uom': 0}
+        {'driver': 'ST', 'value': 1, 'uom': 2}
     ]

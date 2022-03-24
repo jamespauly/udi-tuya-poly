@@ -4,9 +4,9 @@ ND-tuya-ICON = GenericCtl
 CMD-tuyanls-QUERY-NAME = Query
 CMD-tuyanls-DISCOVER-NAME = Discover
 ST-tuyanls-ST-NAME = Tuya NodeServer Running
-ST-tuyanls-GV1-NAME = Device Name
-ST-tuyanls-GV2-NAME = Device IP Address
 
 # daikinnodetype
 ND-tuyanode-NAME = Tuya Device Name
 ND-tuyanode-ICON = Electricity
+ST-tuyanodenls-GV1-NAME = Device Name
+ST-tuyanodenls-GV2-NAME = Device IP Address
