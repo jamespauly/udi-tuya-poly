@@ -16,11 +16,15 @@
     <nodeDef id="tuyanode" nls="tuyanodenls">
         <editors/>
         <sts>
+            <st id="GV3" editor="I_SWITCH_STATUS"/>
             <st id="GV1" editor="I_PERCENT"/>
             <st id="GV2" editor="I_DURATION"/>
         </sts>
         <cmds>
             <accepts>
+                <cmd id="ON"/>
+                <cmd id="OFF"/>
+                <cmd id="AUTO"/>
                 <cmd id="QUERY"/>
             </accepts>
         </cmds>

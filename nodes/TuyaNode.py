@@ -12,6 +12,9 @@ class TuyaNode(udi_interface.Node):
         self.name = name
         self.device = device
 
+        self.tuya_device = tinytuya.BulbDevice(self.device['gwId'], self.device['ip'], self.device['key'])
+        self.tuya_device.set_version(3.3)
+
         self.poly.subscribe(self.poly.START, self.start, address)
         self.poly.subscribe(self.poly.POLL, self.poll)
 
@@ -25,28 +28,53 @@ class TuyaNode(udi_interface.Node):
 
     def query(self):
         LOGGER.info("Query sensor {}".format(self.address))
-        d = tinytuya.BulbDevice(self.device['gwId'], self.device['ip'], self.device['key'])
-        d.set_version(3.3)
+        # tuya_device = tinytuya.BulbDevice(self.device['gwId'], self.device['ip'], self.device['key'])
+        # self.tuya_device.set_version(3.3)
         LOGGER.info("Node Name {}".format(self.name))
-        node_status = d.status()
+        node_status = self.tuya_device.status()
         LOGGER.info("Node Status {}".format(str(node_status)))
         node_brightness = node_status['dps']['107']/10
         LOGGER.info("Node Brightness {}".format(node_brightness))
         node_duration = node_status['dps']['105'].replace('MIN', '')
         LOGGER.info("Node On Time {}".format(node_duration))
+        switch_status = 0
+        if node_status['dps']['101'] == 'AUTO':
+            switch_status = 3
+        elif node_status['dps']['101'] == 'MODE_MAN_ON':
+            switch_status = 1
+        elif node_status['dps']['101'] == 'MODE_MAN_OFF':
+            switch_status = 2
         self.setDriver('GV1', int(node_brightness), True)
         self.setDriver('GV2', int(node_duration), True)
+        self.setDriver('GV3', switch_status, True)
 
     def start(self):
         self.query()
 
+
+    def cmd_set_on(self):
+        self.tuya_device.set_value('101', 'MODE_MAN_ON')
+        self.setDriver('GV3', 1, True)
+
+    def cmd_set_off(self):
+        self.tuya_device.set_value('101', 'MODE_MAN_OFF')
+        self.setDriver('GV3', 2, True)
+
+    def cmd_set_auto(self):
+        self.tuya_device.set_value('101', 'AUTO')
+        self.setDriver('GV3', 3, True)
+
     id = 'tuyanode'
 
     commands = {
+        'ON': cmd_set_on,
+        'OFF': cmd_set_off,
+        'AUTO': cmd_set_auto,
         'QUERY': query
     }
 
     drivers = [
         {'driver': 'GV1', 'value': 0, 'uom': '51'},
-        {'driver': 'GV2', 'value': 0, 'uom': '45'}
+        {'driver': 'GV2', 'value': 0, 'uom': '45'},
+        {'driver': 'GV3', 'value': 0, 'uom': '25'}
     ]
