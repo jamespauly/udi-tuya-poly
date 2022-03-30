@@ -43,6 +43,7 @@ class TuyaController(udi_interface.Node):
 
     def discover(self, *args, **kwargs):
         LOGGER.info("Starting Tuya Device Discovery")
+        #self.poly.addNode(TuyaNode(self.poly, self.address, 'ebd85577f', 'Backyard Flood Light', 'test'))
 
         devices_list = json.loads(self.Parameters['devices'])
 
@@ -52,7 +53,9 @@ class TuyaController(udi_interface.Node):
         for value in scan_results.values():
             ip = value['ip']
             device_id = value['gwId']
-            version = value['version']
+            if len(device_id) > 10:
+                device_id = device_id[:10]
+
             LOGGER.info("Device Scan Device IP: {}".format(ip))
             for dict_found in [x for x in devices_list if x["id"] == value['gwId']]:
                 value['name'] = dict_found['name']

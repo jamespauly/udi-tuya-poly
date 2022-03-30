@@ -24,8 +24,6 @@ class TuyaNode(udi_interface.Node):
             pass
 
     def query(self):
-        self.setDriver('GV1', 100, True)
-        self.setDriver('GV2', 1, True)
         LOGGER.info("Query sensor {}".format(self.address))
         d = tinytuya.BulbDevice(self.device['gwId'], self.device['ip'], self.device['key'])
         d.set_version(3.3)
