@@ -52,15 +52,15 @@ class TuyaNode(udi_interface.Node):
         self.query()
 
 
-    def cmd_set_on(self):
+    def cmd_set_on(self, cmd):
         self.tuya_device.set_value('101', 'MODE_MAN_ON')
         self.setDriver('GV3', 1, True)
 
-    def cmd_set_off(self):
+    def cmd_set_off(self, cmd):
         self.tuya_device.set_value('101', 'MODE_MAN_OFF')
         self.setDriver('GV3', 2, True)
 
-    def cmd_set_auto(self):
+    def cmd_set_auto(self, cmd):
         self.tuya_device.set_value('101', 'AUTO')
         self.setDriver('GV3', 3, True)
 
