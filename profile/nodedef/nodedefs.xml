@@ -22,6 +22,12 @@
         </sts>
         <cmds>
             <accepts>
+                <cmd id="SET_BRIGHTNESS">
+                    <p id="" editor="I_PERCENT" init="GV1"/>
+                </cmd>
+                <cmd id="SET_ONTIME">
+                    <p id="" editor="I_DURATION" init="GV2"/>
+                </cmd>
                 <cmd id="ON"/>
                 <cmd id="OFF"/>
                 <cmd id="AUTO"/>

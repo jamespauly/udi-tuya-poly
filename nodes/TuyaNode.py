@@ -51,7 +51,6 @@ class TuyaNode(udi_interface.Node):
     def start(self):
         self.query()
 
-
     def cmd_set_on(self, cmd):
         self.tuya_device.set_value('101', 'MODE_MAN_ON')
         self.setDriver('GV3', 1, True)
@@ -64,9 +63,20 @@ class TuyaNode(udi_interface.Node):
         self.tuya_device.set_value('101', 'AUTO')
         self.setDriver('GV3', 3, True)
 
+    def cmd_set_bright(self, cmd):
+        calc_bright = str(int(cmd['value']) * 10)
+        self.tuya_device.set_value('107', calc_bright)
+        self.setDriver('GV1', int(cmd['value']), True)
+
+    def cmd_set_duration(self, cmd):
+        self.tuya_device.set_value('105', cmd['value'])
+        self.setDriver('GV2', int(cmd['value']), True)
+
     id = 'tuyanode'
 
     commands = {
+        'SET_BRIGHTNESS': cmd_set_bright,
+        'SET_ONTIME': cmd_set_duration,
         'ON': cmd_set_on,
         'OFF': cmd_set_off,
         'AUTO': cmd_set_auto,

@@ -9,11 +9,13 @@ ST-tuyanls-ST-NAME = Tuya NodeServer Running
 ND-tuyanode-NAME = Tuya Device Name
 ND-tuyanode-ICON = Electricity
 CMD-tuyanodenls-QUERY-NAME = Query
-CMD-tuyanodenls-ON-NAME = ON
-CMD-tuyanodenls-OFF-NAME = OFF
-CMD-tuyanodenls-AUTO-NAME = AUTO
+CMD-tuyanodenls-ON-NAME = On
+CMD-tuyanodenls-OFF-NAME = Off
+CMD-tuyanodenls-AUTO-NAME = Auto
+CMD-tuyanodenls-SET_BRIGHTNESS-NAME = Set Brightness
+CMD-tuyanodenls-SET_ONTIME-NAME = Set On-Time
 ST-tuyanodenls-GV1-NAME = Brightness
-ST-tuyanodenls-GV2-NAME = On Time
+ST-tuyanodenls-GV2-NAME = On-Time
 ST-tuyanodenls-GV3-NAME = Device Status
 
 # switch status
