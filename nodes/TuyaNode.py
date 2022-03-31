@@ -45,7 +45,10 @@ class TuyaNode(udi_interface.Node):
         elif node_status['dps']['101'] == 'MODE_MAN_OFF':
             switch_status = 2
         self.setDriver('GV1', int(node_brightness), True)
-        self.setDriver('GV2', int(node_duration), True)
+        if node_duration != 'TEST':
+            self.setDriver('GV2', int(node_duration), True)
+        else:
+            self.setDriver('GV2', 0, True)
         self.setDriver('GV3', switch_status, True)
 
     def start(self):
@@ -69,7 +72,10 @@ class TuyaNode(udi_interface.Node):
         self.setDriver('GV1', int(cmd['value']), True)
 
     def cmd_set_duration(self, cmd):
-        self.tuya_device.set_value('105', cmd['value'])
+        if int(cmd['value']) != 0:
+            self.tuya_device.set_value('105', cmd['value'])
+        else:
+            self.tuya_device.set_value('105', 'TEST')
         self.setDriver('GV2', int(cmd['value']), True)
 
     id = 'tuyanode'
