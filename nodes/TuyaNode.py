@@ -48,7 +48,6 @@ class TuyaNode(udi_interface.Node):
         else:
             self.setDriver('GV2', 0, True)
         self.setDriver('GV3', switch_status, True)
-        self.reportDrivers()
 
     def start(self):
         self.query()
@@ -66,13 +65,14 @@ class TuyaNode(udi_interface.Node):
         self.setDriver('GV3', 3, True)
 
     def cmd_set_bright(self, cmd):
-        calc_bright = str(int(cmd['value']) * 10)
+        calc_bright = int(cmd['value']) * 10
         self.tuya_device.set_value('107', calc_bright)
         self.setDriver('GV1', int(cmd['value']), True)
 
     def cmd_set_duration(self, cmd):
+        LOGGER.debug(f"cmd_set_duration value: {cmd['value']}")
         if int(cmd['value']) != 0:
-            self.tuya_device.set_value('105', cmd['value'])
+            self.tuya_device.set_value('105', cmd['value'] + 'MIN')
         else:
             self.tuya_device.set_value('105', 'TEST')
         self.setDriver('GV2', int(cmd['value']), True)
