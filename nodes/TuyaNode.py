@@ -28,8 +28,6 @@ class TuyaNode(udi_interface.Node):
 
     def query(self):
         LOGGER.info("Query sensor {}".format(self.address))
-        # tuya_device = tinytuya.BulbDevice(self.device['gwId'], self.device['ip'], self.device['key'])
-        # self.tuya_device.set_version(3.3)
         LOGGER.info("Node Name {}".format(self.name))
         node_status = self.tuya_device.status()
         LOGGER.info("Node Status {}".format(str(node_status)))
@@ -50,6 +48,7 @@ class TuyaNode(udi_interface.Node):
         else:
             self.setDriver('GV2', 0, True)
         self.setDriver('GV3', switch_status, True)
+        self.reportDrivers()
 
     def start(self):
         self.query()

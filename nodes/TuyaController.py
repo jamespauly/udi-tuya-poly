@@ -43,8 +43,6 @@ class TuyaController(udi_interface.Node):
 
     def discover(self, *args, **kwargs):
         LOGGER.info("Starting Tuya Device Discovery")
-        #self.poly.addNode(TuyaNode(self.poly, self.address, 'ebd85577f', 'Backyard Flood Light', 'test'))
-
         devices_list = json.loads(self.Parameters['devices'])
 
         LOGGER.info(json.dumps(devices_list))
@@ -56,12 +54,14 @@ class TuyaController(udi_interface.Node):
             if len(device_id) > 10:
                 device_id = device_id[:10]
 
-            LOGGER.info("Device Scan Device IP: {}".format(ip))
+            LOGGER.info(f"Device Scan Device IP: {ip}")
             for dict_found in [x for x in devices_list if x["id"] == value['gwId']]:
                 value['name'] = dict_found['name']
                 value['key'] = dict_found['key']
-                LOGGER.info("Adding Node: {}".format(dict_found['name']))
-                self.poly.addNode(TuyaNode(self.poly, self.address, device_id, dict_found['name'], value))
+                device_node = self.poly.getNode(device_id)
+                if device_node is None:
+                    LOGGER.info(f"Adding Node: {device_id} - {dict_found['name']}")
+                    self.poly.addNode(TuyaNode(self.poly, self.address, device_id, dict_found['name'], value))
 
         LOGGER.info('Finished Tuya Device Discovery')
 
