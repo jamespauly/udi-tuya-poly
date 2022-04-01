@@ -1,13 +1,13 @@
 import udi_interface
 import tinytuya
 import json
+import time
 
 from nodes import TuyaNode
 
 # IF you want a different log format than the current default
 LOGGER = udi_interface.LOGGER
 Custom = udi_interface.Custom
-
 
 class TuyaController(udi_interface.Node):
     def __init__(self, polyglot, primary, address, name):
@@ -16,15 +16,26 @@ class TuyaController(udi_interface.Node):
         self.name = name
         self.primary = primary
         self.address = address
+        self.n_queue = []
 
         self.Notices = Custom(polyglot, 'notices')
         self.Parameters = Custom(polyglot, 'customparams')
 
         self.poly.subscribe(self.poly.START, self.start, address)
+        self.poly.subscribe(self.poly.STOP, self.stop)
         self.poly.subscribe(self.poly.CUSTOMPARAMS, self.parameter_handler)
+        self.poly.subscribe(self.poly.ADDNODEDONE, self.node_queue)
 
         self.poly.ready()
         self.poly.addNode(self)
+
+    def node_queue(self, data):
+        self.n_queue.append(data['address'])
+
+    def wait_for_node_event(self):
+        while len(self.n_queue) == 0:
+            time.sleep(0.1)
+        self.n_queue.pop()
 
     def parameter_handler(self, params):
         self.Notices.clear()
@@ -62,6 +73,7 @@ class TuyaController(udi_interface.Node):
                 if device_node is None:
                     LOGGER.info(f"Adding Node: {device_id} - {dict_found['name']}")
                     self.poly.addNode(TuyaNode(self.poly, self.address, device_id, dict_found['name'], value))
+                    self.wait_for_node_event()
 
         LOGGER.info('Finished Tuya Device Discovery')
 
@@ -69,6 +81,11 @@ class TuyaController(udi_interface.Node):
         LOGGER.info('Deleting Tuya Node Server')
 
     def stop(self):
+        nodes = self.poly.getNodes()
+        for node in nodes:
+            if node != 'controller':  # but not the controller node
+                nodes[node].setDriver('ST', 0, True, True)
+        self.poly.stop()
         LOGGER.info('Daikin Tuya stopped.')
 
     id = 'tuya'

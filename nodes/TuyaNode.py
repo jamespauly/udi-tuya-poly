@@ -89,6 +89,7 @@ class TuyaNode(udi_interface.Node):
     }
 
     drivers = [
+        {'driver': 'ST', 'value': 1, 'uom': 2},
         {'driver': 'GV1', 'value': 0, 'uom': '51'},
         {'driver': 'GV2', 'value': 0, 'uom': '45'},
         {'driver': 'GV3', 'value': 0, 'uom': '25'}

@@ -14,6 +14,7 @@ CMD-tuyanodenls-OFF-NAME = Off
 CMD-tuyanodenls-AUTO-NAME = Auto
 CMD-tuyanodenls-SET_BRIGHTNESS-NAME = Set Brightness
 CMD-tuyanodenls-SET_ONTIME-NAME = Set On-Time
+ST-tuyanodenls-ST-NAME = Node Active
 ST-tuyanodenls-GV1-NAME = Brightness
 ST-tuyanodenls-GV2-NAME = On-Time
 ST-tuyanodenls-GV3-NAME = Device Status

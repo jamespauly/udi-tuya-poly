@@ -16,6 +16,7 @@
     <nodeDef id="tuyanode" nls="tuyanodenls">
         <editors/>
         <sts>
+            <st id="ST" editor="bool" />
             <st id="GV3" editor="I_SWITCH_STATUS"/>
             <st id="GV1" editor="I_PERCENT"/>
             <st id="GV2" editor="I_DURATION"/>
